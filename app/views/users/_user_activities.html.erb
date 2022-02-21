@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    Activities
+
+    <a data-toggle="collapse" href="#user_activities_new_form">
+      Add activity
+    </a>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <% @user.activities.each do |activity| %>
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <%= link_to activity, activity %>
+
+      </li>
+    <% end %>
+
+    <div class="card-footer">
+      <div class="collapse" id="user_activities_new_form">
+        <%= render partial: "users/user_activities_new_form" %>
+      </div>
+    </div>
+
+  </ul>
+</div>

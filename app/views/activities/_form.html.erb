@@ -1,0 +1,116 @@
+<% was_validated = activity.errors.any? %>
+
+<%= form_with(model: activity, local: true, novalidate: true, class: "mb-3") do |f| %>
+  <%= f.hidden_field :created_by, value: current_user.id %>
+  <div class="form-group">
+    <% activity_type_class = "form-control" %>
+    <% activity_type_was_invalid = activity.errors.include?(:activity_type) %>
+
+    <% if was_validated %>
+      <% if activity_type_was_invalid %>
+        <% activity_type_class << " is-invalid" %>
+      <% else %>
+        <% activity_type_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :activity_type %>
+    <%= f.collection_select :activity_type, Type.all, :id, :to_s, {}, class: "form-control" %>
+    <% if activity_type_was_invalid %>
+      <% activity.errors.full_messages_for(:activity_type).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% photo_class = "form-control" %>
+    <% photo_was_invalid = activity.errors.include?(:photo) %>
+
+    <% if was_validated %>
+      <% if photo_was_invalid %>
+        <% photo_class << " is-invalid" %>
+      <% else %>
+        <% photo_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :photo %>
+    <%= f.file_field :photo, class: "form-control" %>
+    <% if photo_was_invalid %>
+      <% activity.errors.full_messages_for(:photo).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% distance_class = "form-control" %>
+    <% distance_was_invalid = activity.errors.include?(:distance) %>
+
+    <% if was_validated %>
+      <% if distance_was_invalid %>
+        <% distance_class << " is-invalid" %>
+      <% else %>
+        <% distance_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :distance %>
+    <%= f.text_field :distance, class: distance_class, placeholder: "Enter distance" %>
+    <% if distance_was_invalid %>
+      <% activity.errors.full_messages_for(:distance).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% calory_class = "form-control" %>
+    <% calory_was_invalid = activity.errors.include?(:calory) %>
+
+    <% if was_validated %>
+      <% if calory_was_invalid %>
+        <% calory_class << " is-invalid" %>
+      <% else %>
+        <% calory_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :calories %>
+    <%= f.text_field :calories, class: calory_class, placeholder: "Enter calory" %>
+    <% if calory_was_invalid %>
+      <% activity.errors.full_messages_for(:calory).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% shoes_used_class = "form-control" %>
+    <% shoes_used_was_invalid = activity.errors.include?(:shoes_used) %>
+
+    <% if was_validated %>
+      <% if shoes_used_was_invalid %>
+        <% shoes_used_class << " is-invalid" %>
+      <% else %>
+        <% shoes_used_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :shoes_used %>
+    <%= f.collection_select :shoes_used, Shoe.all, :id, :to_s, {}, class: "form-control" %>
+    <% if shoes_used_was_invalid %>
+      <% activity.errors.full_messages_for(:shoes_used).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>

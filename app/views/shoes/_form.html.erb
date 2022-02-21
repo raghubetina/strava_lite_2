@@ -1,0 +1,93 @@
+<% was_validated = shoe.errors.any? %>
+
+<%= form_with(model: shoe, local: true, novalidate: true, class: "mb-3") do |f| %>
+  <div class="form-group">
+    <% owner_class = "form-control" %>
+    <% owner_was_invalid = shoe.errors.include?(:owner) %>
+
+    <% if was_validated %>
+      <% if owner_was_invalid %>
+        <% owner_class << " is-invalid" %>
+      <% else %>
+        <% owner_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :owner %>
+    <%= f.number_field :owner, class: owner_class, placeholder: "Enter owner" %>
+    <% if owner_was_invalid %>
+      <% shoe.errors.full_messages_for(:owner).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% name_class = "form-control" %>
+    <% name_was_invalid = shoe.errors.include?(:name) %>
+
+    <% if was_validated %>
+      <% if name_was_invalid %>
+        <% name_class << " is-invalid" %>
+      <% else %>
+        <% name_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, class: name_class, placeholder: "Enter name" %>
+    <% if name_was_invalid %>
+      <% shoe.errors.full_messages_for(:name).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% make_class = "form-control" %>
+    <% make_was_invalid = shoe.errors.include?(:make) %>
+
+    <% if was_validated %>
+      <% if make_was_invalid %>
+        <% make_class << " is-invalid" %>
+      <% else %>
+        <% make_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :make %>
+    <%= f.text_field :make, class: make_class, placeholder: "Enter make" %>
+    <% if make_was_invalid %>
+      <% shoe.errors.full_messages_for(:make).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <% model_class = "form-control" %>
+    <% model_was_invalid = shoe.errors.include?(:model) %>
+
+    <% if was_validated %>
+      <% if model_was_invalid %>
+        <% model_class << " is-invalid" %>
+      <% else %>
+        <% model_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :model %>
+    <%= f.text_field :model, class: model_class, placeholder: "Enter model" %>
+    <% if model_was_invalid %>
+      <% shoe.errors.full_messages_for(:model).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>
